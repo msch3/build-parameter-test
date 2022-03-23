@@ -1,0 +1,15 @@
+version: 2.1
+  parameter-build:
+    docker:
+      - image: circleci/python:3.8
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
+    steps:
+      - run: echo "hi: $PARAM_ONE - $PARAM_TWO"
+
+
+workflows:
+  doit:
+    jobs:
+      - parameter-build
