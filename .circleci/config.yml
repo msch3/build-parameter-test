@@ -1,4 +1,23 @@
 version: 2.1
+parameters:
+  param-string:
+    type: string
+    description: A test string value
+    default: "test-string-value"
+  param-bool:
+    type: boolean
+    description: A test of boolean values.
+    default: false
+  param-integer:
+    description: A test of integer parameters
+    type: integer
+    default: -1
+  param-enum:
+    description: A test of enum parameters
+    default: "foo"
+    type: enum
+    enum: ["foo", "bar", "car"]
+
 jobs:
   parameter-build:
     docker:
@@ -6,9 +25,11 @@ jobs:
         auth:
           username: $DOCKER_USERNAME
           password: $DOCKER_PASSWORD
+    environment:
+      PARAM_STRING: << parameters.param-string >>
+      PARAM_BOOL: << parameters.param-bool >>
     steps:
-      - run: echo hi $PARAM_ONE - $PARAM_TWO
-
+      - run: echo hi $PARAM_STRING - $PARAM_BOOL : << parameters.param-integer >> - << parameters.param-enum >>
 
 workflows:
   doit:
