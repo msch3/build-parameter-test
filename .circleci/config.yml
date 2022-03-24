@@ -26,10 +26,10 @@ jobs:
           username: $DOCKER_USERNAME
           password: $DOCKER_PASSWORD
     environment:
-      PARAM_STRING: << parameters.param-string >>
-      PARAM_BOOL: << parameters.param-bool >>
+      PARAM_STRING: << pipeline.parameters.param-string >>
+      PARAM_BOOL: << pipeline.parameters.param-bool >>
     steps:
-      - run: echo hi $PARAM_STRING - $PARAM_BOOL : << parameters.param-integer >> - << parameters.param-enum >>
+      - run: echo hi $PARAM_STRING - $PARAM_BOOL -- << pipeline.parameters.param-integer >> - << pipeline.parameters.param-enum >>
 
 workflows:
   doit:
